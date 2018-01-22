@@ -5,6 +5,7 @@ class Game:
     def __init__(self):
         self.board = []
         self.player = "x"
+        self.moves = []
 
         for x in range(4):
             t = []
@@ -22,15 +23,16 @@ class Game:
     def allowed_moves(self):
         n = 1
         allowed = []
-        for x in self.board[3]:
-            for y in x:
-                if y == '0':
-                    allowed.append(n)
+        for x in range(4):
+            for y in range(4):
+                if self.board[3][y][x] == '0':
+                    allowed.append(x*4+y+1)
                 n+=1
         return allowed
 
     def move(self,place):
         if place in self.allowed_moves():
+            self.moves.append(place)
             x = 0
             while 1:
                 if self.board[x][(place-1)%4][floor((place-1)/4)] == '0':
@@ -88,12 +90,16 @@ class Game:
             if len([1 for x in range(4) if self.board[x][3-x][row] == "y"]) == 4:
                 return "y"
 
-
-game = Game()
-
-while not game.check_board():
-    game.print_board()
-    print(game.check_board())
-    print(game.allowed_moves())
-    game.move(int(input("mov? ")))
-
+    def undo_move(self):
+        x = 3
+        while 1:
+            if self.board[x][(self.moves[-1]-1)%4][floor((self.moves[-1]-1)/4)] == '0':
+                self.board[x][(self.moves[-1]-1) % 4][floor((self.moves[-1]-1) / 4)] = self.player
+                if self.player == "x":
+                    self.player = "y"
+                else:
+                    self.player = "x"
+                break
+            else:
+                x-=1
+        self.moves.pop()
