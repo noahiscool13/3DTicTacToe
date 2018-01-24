@@ -36,12 +36,13 @@ def  alphabeta(game, depth, a, b, player):
     return best
 
 def AI(game):
+    """Multi core alpha beta AI"""
     nxt_games = []
     for x in game.allowed_moves():
         game_child = deepcopy(game)
         game_child.move(x)
         nxt_games.append((game_child,game))
-    pool = Pool(4)
+    pool = Pool(6)
     nxt_scores = pool.map(tread, nxt_games)
     good_moves = [game.allowed_moves()[x] for x in range(len(game.allowed_moves())) if
                   nxt_scores[x] == max(nxt_scores)]

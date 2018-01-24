@@ -1,4 +1,5 @@
 def AI(game):
+    """Human player"""
     game.print_board()
     print("you are: ", game.player)
     try:

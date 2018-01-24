@@ -26,11 +26,12 @@ def minimax(game,depth,player):
     return best
 
 def AI(game):
+    """Basic minimax AI"""
     nxt_games = []
     for x in game.allowed_moves():
         game_child = deepcopy(game)
         game_child.move(x)
         nxt_games.append(game_child)
-    nxt_scores = [minimax(g,3,game.player) for g in nxt_games]
+    nxt_scores = [minimax(g,2,game.player) for g in nxt_games]
     good_moves = [game.allowed_moves()[x] for x in range(len(game.allowed_moves())) if nxt_scores[x] == max(nxt_scores)]
     return choice(good_moves)

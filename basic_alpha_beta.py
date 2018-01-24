@@ -32,6 +32,7 @@ def  alphabeta(game, depth, a, b, player):
     return best
 
 def AI(game):
+    """Basic alpha beta AI"""
     nxt_games = []
     for x in game.allowed_moves():
         game_child = deepcopy(game)
