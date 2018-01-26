@@ -89,6 +89,24 @@ class Game:
                 return "x"
             if len([1 for x in range(4) if self.board[x][3-x][row] == "y"]) == 4:
                 return "y"
+        if len([1 for x in range(4) if self.board[x][x][x] == "x"]) == 4:
+            return "x"
+        if len([1 for x in range(4) if self.board[x][x][x] == "y"]) == 4:
+            return "y"
+        if len([1 for x in range(4) if self.board[x][x][3-x] == "x"]) == 4:
+            return "x"
+        if len([1 for x in range(4) if self.board[x][x][3-x] == "y"]) == 4:
+            return "y"
+        if len([1 for x in range(4) if self.board[x][3-x][x] == "x"]) == 4:
+            return "x"
+        if len([1 for x in range(4) if self.board[x][3-x][x] == "y"]) == 4:
+            return "y"
+        if len([1 for x in range(4) if self.board[x][3 - x][3 - x] == "x"]) == 4:
+            return "x"
+        if len([1 for x in range(4) if self.board[x][3 - x][3 - x] == "y"]) == 4:
+            return "y"
+        if not self.allowed_moves():
+            return "tie"
 
     def undo_move(self):
         x = 3

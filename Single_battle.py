@@ -3,7 +3,7 @@ from copy import deepcopy
 from time import *
 import inspect
 import os
-from multy_core_a_b import AI as AI1
+from human_inteligence import AI as AI1
 from multy_core_a_b import AI as AI2
 
 display = 1
