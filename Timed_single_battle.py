@@ -3,13 +3,12 @@ from copy import deepcopy
 from time import *
 import inspect
 import os
-from io import StringIO
-import sys
+from Capturing import *
 from time_limited_multy_core_a_b import AI as AI1
-from time_limited_multy_core_a_b import AI as AI2
+from time_limited_alpha_beta import AI as AI2
 
 display = 1
-time_max = 0.1
+time_max = 0.4
 
 p1_time = []
 p2_time = []
@@ -19,16 +18,7 @@ p2_comment = {}
 
 move = 1
 
-class Capturing(list):
 
-    def __enter__(self):
-        self._stdout = sys.stdout
-        sys.stdout = self._stringio = StringIO()
-        return self
-    def __exit__(self, *args):
-        self.extend(self._stringio.getvalue().splitlines())
-        del self._stringio    # free up some memory
-        sys.stdout = self._stdout
 
 t = time()
 if __name__ == '__main__':
