@@ -18,5 +18,8 @@ print(len(dy))
 
 print(len(dx)+len(dy))
 
-pickle.dump(x_wins,open("x_wins_clean.p", "wb"))
-pickle.dump(y_wins,open("y_wins_clean.p", "wb"))
+dx = [flatten(flatten(x)) for x in dx]
+dy = [flatten(flatten(x)) for x in dy]
+
+pickle.dump(dx,open("x_wins_clean.p", "wb"))
+pickle.dump(dy,open("y_wins_clean.p", "wb"))
