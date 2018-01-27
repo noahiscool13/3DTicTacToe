@@ -69,13 +69,20 @@ def AI(game,t_max):
         depth+=1
     good_moves = []
     print("depth was "+ str(depth))
-    if completed:
-        for x in range(len(game.allowed_moves())):
-            if nxt_scores[-1][x] == max(nxt_scores[-1]):
-                good_moves.append(game.allowed_moves()[x])
-    else:
-        for x in range(len(game.allowed_moves())):
-            if nxt_scores[-2][x] == max(nxt_scores[-2]):
-                good_moves.append(game.allowed_moves()[x])
-    pool.close()
-    return choice(good_moves)
+    if len(nxt_scores)>0:
+        if completed:
+            for x in range(len(game.allowed_moves())):
+                if nxt_scores[-1][x] == max(nxt_scores[-1]):
+                    good_moves.append(game.allowed_moves()[x])
+        else:
+            if len(nxt_scores)>1:
+                for x in range(len(game.allowed_moves())):
+                    if nxt_scores[-2][x] == max(nxt_scores[-2]):
+                        good_moves.append(game.allowed_moves()[x])
+            else:
+                for x in range(len(game.allowed_moves())):
+                    if nxt_scores[-1][x] == max(nxt_scores[-1]):
+                        good_moves.append(game.allowed_moves()[x])
+        pool.close()
+        return choice(good_moves)
+    return choice(game.allowed_moves())
