@@ -9,11 +9,11 @@ dx = [tuple([tuple([tuple(z) for z in l]) for l in x]) for x in flatten(x_wins)]
 dy = [tuple([tuple([tuple(z) for z in l]) for l in x]) for x in flatten(y_wins)]
 
 print(len(dx))
-dx = list(set(dx))
+dx = set(dx)
 print(len(dx))
 
 print(len(dy))
-dy = list(set(dy))
+dy = set(dy)
 print(len(dy))
 
 print(len(dx)+len(dy))

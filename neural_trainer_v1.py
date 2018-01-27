@@ -4,17 +4,10 @@ from random import shuffle
 from matplotlib import pyplot as plt
 import os
 
-batch = 50
+batch = 10
 
-flatten = lambda l: [item for sublist in l for item in sublist]
-
-x_wins = pickle.load(open("x_wins.p","rb"))
-y_wins = pickle.load(open("y_wins.p","rb"))
-
-
-x_data = [flatten(flatten(x[0])) for x in x_wins]
-y_data = [flatten(flatten(x[0])) for x in y_wins]
-
+x_data = pickle.load(open("x_wins_clean.p","rb"))
+y_data = pickle.load(open("y_wins_clean.p","rb"))
 
 data = [(x,0) for x in x_data] + [(x,1) for x in y_data]
 shuffle(data)
@@ -48,8 +41,8 @@ def net(data):
     l1 = tf.nn.sigmoid(tf.matmul(data, hidden_l1["w"]) + hidden_l1["b"])
     l2 = tf.nn.sigmoid(tf.matmul(l1, hidden_l2["w"]) + hidden_l2["b"])
     l3 = tf.nn.sigmoid(tf.matmul(l2, hidden_l3["w"]) + hidden_l3["b"])
-    l4 = tf.nn.relu(tf.matmul(l3, hidden_l4["w"]) + hidden_l4["b"])
-    out = tf.matmul(l4, output_l["w"]) + output_l["b"]
+    l4 = tf.nn.sigmoid(tf.matmul(l3, hidden_l4["w"]) + hidden_l4["b"])
+    out = tf.nn.sigmoid(tf.matmul(l4, output_l["w"]) + output_l["b"])
 
     return out
 
@@ -65,7 +58,7 @@ def train_net(x, y):
         saver = tf.train.Saver()
         testE = []
         trainE = []
-        for epoch in range(15):
+        for epoch in range(400):
             c = list(zip(trQ, trA))
 
             shuffle(c)
@@ -96,10 +89,6 @@ def train_net(x, y):
     plt.plot(testE[1:])
     plt.plot(trainE[1:])
     plt.show()
-
-
-
-
 
 
 

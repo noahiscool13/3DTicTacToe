@@ -10,8 +10,8 @@ from time_limited_multy_core_a_b import AI as AI2
 
 time_max = 1
 
-x_wins = []
-y_wins = []
+x_wins = set()
+y_wins = set()
 
 class Capturing(list):
 
@@ -28,14 +28,14 @@ t = time()
 if __name__ == '__main__':
 
     try:
-        x_wins = pickle.load(open("x_wins.p", "rb"))
-        y_wins = pickle.load(open("y_wins.p", "rb"))
+        x_wins = pickle.load(open("x_wins_clean.p", "rb"))
+        y_wins = pickle.load(open("y_wins_clean.p", "rb"))
     except:
         print("No file found")
 
     n = 0
 
-    while len(x_wins)+len(y_wins)<5000:
+    while True:
         n+=1
 
         p1_time = []
@@ -65,13 +65,15 @@ if __name__ == '__main__':
                 p2_time.append(round(time() - t, 3))
                 if len(output)>0:
                     p2_comment[move] = output
-            states.append(game.board)
+            states.append(tuple([tuple([tuple(z) for z in l]) for l in game.board]))
             move += 1
         if game.check_board() == "x":
-            x_wins.append(states)
+            for state in states:
+                x_wins.add(state)
         if game.check_board() == "y":
-            y_wins.append(states)
+            for state in states:
+                y_wins.add(state)
         print("game: ",n,"done")
-
-        pickle.dump(x_wins,open("x_wins.p", "wb"))
-        pickle.dump(y_wins,open("y_wins.p", "wb"))
+        print(len(x_wins),len(y_wins))
+        pickle.dump(x_wins,open("x_wins_clean.p", "wb"))
+        pickle.dump(y_wins,open("y_wins_clean.p", "wb"))
