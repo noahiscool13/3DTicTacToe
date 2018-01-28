@@ -4,10 +4,15 @@ from random import shuffle
 from matplotlib import pyplot as plt
 import os
 
-batch = 10
+flatten = lambda l: [item for sublist in l for item in sublist]
+
+batch = 100
 
 x_data = pickle.load(open("x_wins_clean.p","rb"))
 y_data = pickle.load(open("y_wins_clean.p","rb"))
+
+x_data = [flatten(flatten(x)) for x in x_data]
+y_data = [flatten(flatten(x)) for x in y_data]
 
 data = [(x,0) for x in x_data] + [(x,1) for x in y_data]
 shuffle(data)
@@ -58,7 +63,7 @@ def train_net(x, y):
         saver = tf.train.Saver()
         testE = []
         trainE = []
-        for epoch in range(400):
+        for epoch in range(40):
             c = list(zip(trQ, trA))
 
             shuffle(c)
@@ -69,7 +74,7 @@ def train_net(x, y):
                 ba = trA[bt * batch:bt * batch + batch]
                 _, c = sess.run([optimizer, cost], feed_dict={x: bq, y: ba})
             # print(epoch, c)
-            if epoch % 10 == 0:
+            if epoch % 1 == 0:
                 loss = tf.losses.absolute_difference(predict, y)
                 loss = sess.run([loss], feed_dict={x: trQ, y: trA})
                 trainE.append(loss)

@@ -4,11 +4,12 @@ from time import *
 import inspect
 import os
 from Capturing import *
-from time_limited_multy_core_a_b import AI as AI1
-from time_limited_alpha_beta import AI as AI2
+from basic_minimax import AI as AI1
+from trained_ai import AI as AI2
 
 display = 1
-time_max = 0.4
+capture = 0
+time_max = 300
 
 p1_time = []
 p2_time = []
@@ -27,18 +28,26 @@ if __name__ == '__main__':
     while not game.check_board():
         if game.player == "x":
             t = time()
-            with Capturing() as output:
+            if capture:
+                with Capturing() as output:
+                    game.move(AI1(deepcopy(game)))
+            else:
                 game.move(AI1(deepcopy(game)))
             p1_time.append(round(time() - t, 3))
-            if len(output)>0:
-                p1_comment[move] = output
+            if capture:
+                if len(output)>0:
+                    p1_comment[move] = output
         else:
             t = time()
-            with Capturing() as output:
+            if capture:
+                with Capturing() as output:
+                    game.move(AI2(deepcopy(game)))
+            else:
                 game.move(AI2(deepcopy(game)))
             p2_time.append(round(time() - t, 3))
-            if len(output)>0:
-                p2_comment[move] = output
+            if capture:
+                if len(output)>0:
+                    p2_comment[move] = output
         move += 1
         if display:
             game.print_board()
