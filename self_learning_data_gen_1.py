@@ -27,6 +27,12 @@ class Capturing(list):
 t = time()
 if __name__ == '__main__':
 
+    try:
+        x_wins = pickle.load(open("x_wins.p", "rb"))
+        y_wins = pickle.load(open("y_wins.p", "rb"))
+    except:
+        print("No file found")
+
     n = 0
 
     while datetime.datetime.now().hour != 14:
@@ -43,18 +49,19 @@ if __name__ == '__main__':
         states = []
 
         game = Game()
+        game.time_limit = 1
         while not game.check_board():
             if game.player == "x":
                 t = time()
                 with Capturing() as output:
-                    game.move(AI1(deepcopy(game),time_max))
+                    game.move(AI1(deepcopy(game)))
                 p1_time.append(round(time() - t, 3))
                 if len(output)>0:
                     p1_comment[move] = output
             else:
                 t = time()
                 with Capturing() as output:
-                    game.move(AI2(deepcopy(game),time_max))
+                    game.move(AI2(deepcopy(game)))
                 p2_time.append(round(time() - t, 3))
                 if len(output)>0:
                     p2_comment[move] = output
