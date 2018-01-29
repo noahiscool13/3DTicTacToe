@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
     n = 0
 
-    while datetime.datetime.now().hour != 14:
+    while len(x_wins)+len(y_wins)<5000:
         n+=1
 
         p1_time = []
