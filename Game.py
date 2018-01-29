@@ -6,6 +6,8 @@ class Game:
         self.board = []
         self.player = "x"
         self.moves = []
+        self.time_mode = "none"
+        self.time_limit = 5
 
         for x in range(4):
             t = []
@@ -13,6 +15,11 @@ class Game:
                 t.append(['0', '0', '0', '0'])
             self.board.append(t)
 
+    def set_time_mode(self,mode):
+        self.time_mode = mode
+
+    def set_time_limit(self,lim):
+        self.time_limit = lim
 
     def print_board(self):
         for x in self.board:

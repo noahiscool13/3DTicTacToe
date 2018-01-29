@@ -48,10 +48,10 @@ def  alphabeta(game, depth, a, b, player,t_stop):
             break
     return (best,done)
 
-def AI(game,t_max):
+def AI(game):
     """Time limited multi core alpha beta AI"""
     completed = 0
-    t_end = time() + t_max
+    t_end = time() + game.time_limit
     depth = 1
     nxt_scores = []
     pool = Pool(6)

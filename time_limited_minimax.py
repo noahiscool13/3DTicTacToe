@@ -26,9 +26,9 @@ def minimax(game,depth,player,t_stop):
         best = min(best, minimax(game_child, depth - 1, player,t_stop))
     return best
 
-def AI(game,t_max):
+def AI(game):
     """"Time limited minimax"""
-    t_end = time()+t_max
+    t_end = time()+game.time_limit
     depth = 1
     nxt_scores = []
     while time()<t_end:

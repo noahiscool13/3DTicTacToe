@@ -32,9 +32,9 @@ def  alphabeta(game, depth, a, b, player,t_stop):
             break
     return best
 
-def AI(game,t_max):
+def AI(game):
     """Time limited alpha beta AI"""
-    t_end = time() + t_max
+    t_end = time() + game.time_limit
     depth = 1
     nxt_scores = []
     while time() < t_end:

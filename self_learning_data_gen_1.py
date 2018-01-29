@@ -66,5 +66,5 @@ if __name__ == '__main__':
             y_wins.append(states)
         print("game: ",n,"done")
 
-    pickle.dump(x_wins,open("x_wins.p", "wb"))
-    pickle.dump(y_wins,open("y_wins.p", "wb"))
+        pickle.dump(x_wins,open("x_wins.p", "wb"))
+        pickle.dump(y_wins,open("y_wins.p", "wb"))
