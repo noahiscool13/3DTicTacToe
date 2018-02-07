@@ -38,7 +38,7 @@ def AI(game):
         game_child = deepcopy(game)
         game_child.move(x)
         nxt_games.append(game_child)
-    nxt_scores = [alphabeta(g, 5,-99999,99999, game.player) for g in nxt_games]
+    nxt_scores = [alphabeta(g, 2,-99999,99999, game.player) for g in nxt_games]
     good_moves = [game.allowed_moves()[x] for x in range(len(game.allowed_moves())) if
                   nxt_scores[x] == max(nxt_scores)]
     return choice(good_moves)

@@ -4,8 +4,8 @@ from time import *
 import inspect
 import os
 from Capturing import *
-from time_limited_multy_core_a_b import AI as AI1
-from time_limited_alpha_beta import AI as AI2
+from random_AI import AI as AI1
+from random_AI import AI as AI2
 
 display = 1
 time_max = 0.4
@@ -46,6 +46,7 @@ if __name__ == '__main__':
     game.print_board()
     print(game.check_board())
     print(game.moves)
+    print(len(game.moves))
 
     post_mortem = open(os.path.join("post_morta",str(round(time()))),"w")
     post_mortem.write("Player x: " + str(inspect.getdoc(AI1)) + "\n")

@@ -118,8 +118,8 @@ class Game:
     def undo_move(self):
         x = 3
         while 1:
-            if self.board[x][(self.moves[-1]-1)%4][floor((self.moves[-1]-1)/4)] == '0':
-                self.board[x][(self.moves[-1]-1) % 4][floor((self.moves[-1]-1) / 4)] = self.player
+            if self.board[x][(self.moves[-1]-1)%4][floor((self.moves[-1]-1)/4)] != '0':
+                self.board[x][(self.moves[-1]-1) % 4][floor((self.moves[-1]-1) / 4)] = '0'
                 if self.player == "x":
                     self.player = "y"
                 else:
