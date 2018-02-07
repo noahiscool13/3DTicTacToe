@@ -47,4 +47,5 @@ def AI(game):
         depth+=1
     good_moves = [game.allowed_moves()[x] for x in range(len(game.allowed_moves())) if
                   nxt_scores[-2][x] == max(nxt_scores[-2])]
+    print("depth:",depth)
     return choice(good_moves)

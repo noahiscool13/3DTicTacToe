@@ -17,9 +17,9 @@ def  alphabeta(game, depth, a, b, player,t_stop):
     if time() > t_stop:
         return (score(game,player),0)
     if game.check_board():
-        return (score(game, player), 0)
-    if depth == 0:
         return (score(game, player), 1)
+    if depth == 0:
+        return (score(game, player), 0)
 
     done = 1
     if game.player == player:
