@@ -26,7 +26,7 @@ if __name__ == '__main__':
     game = Game()
     game.time_limit = time_max
     while not game.check_board():
-        if game.player == "x":
+        if game.player == 1:
             t = time()
             if capture:
                 with Capturing() as output:

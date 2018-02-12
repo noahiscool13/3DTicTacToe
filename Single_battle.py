@@ -4,7 +4,7 @@ from time import *
 import inspect
 import os
 from human_inteligence import AI as AI1
-from multy_core_a_b import AI as AI2
+from basic_alpha_beta import AI as AI2
 
 display = 1
 
@@ -16,7 +16,7 @@ t = time()
 if __name__ == '__main__':
     game = Game()
     while not game.check_board():
-        if game.player == "x":
+        if game.player == "1":
             t = time()
             game.move(AI1(deepcopy(game)))
             p1_time.append(round(time() - t,3))

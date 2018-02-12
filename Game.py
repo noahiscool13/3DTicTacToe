@@ -4,7 +4,7 @@ from math import *
 class Game:
     def __init__(self):
         self.board = []
-        self.player = "x"
+        self.player = "1"
         self.moves = []
         self.time_mode = "none"
         self.time_limit = 5
@@ -12,7 +12,7 @@ class Game:
         for x in range(4):
             t = []
             for y in range(4):
-                t.append(['0', '0', '0', '0'])
+                t.append([0,0,0,0])
             self.board.append(t)
 
     def set_time_mode(self,mode):
@@ -32,7 +32,7 @@ class Game:
         allowed = []
         for x in range(4):
             for y in range(4):
-                if self.board[3][y][x] == '0':
+                if self.board[3][y][x] == 0:
                     allowed.append(x*4+y+1)
                 n+=1
         return allowed
@@ -42,12 +42,12 @@ class Game:
             self.moves.append(place)
             x = 0
             while 1:
-                if self.board[x][(place-1)%4][floor((place-1)/4)] == '0':
+                if self.board[x][(place-1)%4][floor((place-1)/4)] == 0:
                     self.board[x][(place-1) % 4][floor((place-1) / 4)] = self.player
-                    if self.player == "x":
-                        self.player = "y"
+                    if self.player == 1:
+                        self.player = -1
                     else:
-                        self.player = "x"
+                        self.player = 1
                     break
                 else:
                     x+=1
@@ -55,75 +55,75 @@ class Game:
     def check_board(self):
         for layer in self.board:
             for row in layer:
-                if len([1 for x in row if x == "x"]) == 4:
-                    return "x"
-                if len([1 for x in row if x == "y"]) == 4:
-                    return "y"
+                if len([1 for x in row if x == 1]) == 4:
+                    return 1
+                if len([1 for x in row if x == -1]) == 4:
+                    return -1
             for coll in range(4):
-                if len([1 for x in range(4) if layer[x][coll] == "x"]) == 4:
-                    return "x"
-                if len([1 for x in range(4) if layer[x][coll] == "y"]) == 4:
-                    return "y"
-            if len([1 for x in range(4) if layer[x][x] == "x"]) == 4:
-                return "x"
-            if len([1 for x in range(4) if layer[x][x] == "y"]) == 4:
-                return "y"
-            if len([1 for x in range(4) if layer[x][3-x] == "x"]) == 4:
-                return "x"
-            if len([1 for x in range(4) if layer[x][3-x] == "y"]) == 4:
-                return "y"
+                if len([1 for x in range(4) if layer[x][coll] == 1]) == 4:
+                    return 1
+                if len([1 for x in range(4) if layer[x][coll] == -1]) == 4:
+                    return -1
+            if len([1 for x in range(4) if layer[x][x] == 1]) == 4:
+                return 1
+            if len([1 for x in range(4) if layer[x][x] == -1]) == 4:
+                return -1
+            if len([1 for x in range(4) if layer[x][3-x] == 1]) == 4:
+                return 1
+            if len([1 for x in range(4) if layer[x][3-x] == -1]) == 4:
+                return -1
 
         for row in range(4):
             for coll in range(4):
-                if len([1 for layer in range(4) if self.board[layer][row][coll] == "x"]) == 4:
-                    return "x"
-                if len([1 for layer in range(4) if self.board[layer][row][coll] == "y"]) == 4:
-                    return "y"
-            if len([1 for x in range(4) if self.board[x][row][x] == "x"]) == 4:
-                return "x"
-            if len([1 for x in range(4) if self.board[x][row][x] == "y"]) == 4:
-                return "y"
-            if len([1 for x in range(4) if self.board[x][row][3-x] == "x"]) == 4:
-                return "x"
-            if len([1 for x in range(4) if self.board[x][row][3-x] == "y"]) == 4:
-                return "y"
+                if len([1 for layer in range(4) if self.board[layer][row][coll] == 1]) == 4:
+                    return 1
+                if len([1 for layer in range(4) if self.board[layer][row][coll] == -1]) == 4:
+                    return -1
+            if len([1 for x in range(4) if self.board[x][row][x] == 1]) == 4:
+                return 1
+            if len([1 for x in range(4) if self.board[x][row][x] == -1]) == 4:
+                return -1
+            if len([1 for x in range(4) if self.board[x][row][3-x] == 1]) == 4:
+                return 1
+            if len([1 for x in range(4) if self.board[x][row][3-x] == -1]) == 4:
+                return -1
 
-            if len([1 for x in range(4) if self.board[x][x][row] == "x"]) == 4:
-                return "x"
-            if len([1 for x in range(4) if self.board[x][x][row] == "y"]) == 4:
-                return "y"
-            if len([1 for x in range(4) if self.board[x][3-x][row] == "x"]) == 4:
-                return "x"
-            if len([1 for x in range(4) if self.board[x][3-x][row] == "y"]) == 4:
-                return "y"
-        if len([1 for x in range(4) if self.board[x][x][x] == "x"]) == 4:
-            return "x"
-        if len([1 for x in range(4) if self.board[x][x][x] == "y"]) == 4:
-            return "y"
-        if len([1 for x in range(4) if self.board[x][x][3-x] == "x"]) == 4:
-            return "x"
-        if len([1 for x in range(4) if self.board[x][x][3-x] == "y"]) == 4:
-            return "y"
-        if len([1 for x in range(4) if self.board[x][3-x][x] == "x"]) == 4:
-            return "x"
-        if len([1 for x in range(4) if self.board[x][3-x][x] == "y"]) == 4:
-            return "y"
-        if len([1 for x in range(4) if self.board[x][3 - x][3 - x] == "x"]) == 4:
-            return "x"
-        if len([1 for x in range(4) if self.board[x][3 - x][3 - x] == "y"]) == 4:
-            return "y"
+            if len([1 for x in range(4) if self.board[x][x][row] == 1]) == 4:
+                return 1
+            if len([1 for x in range(4) if self.board[x][x][row] == -1]) == 4:
+                return -1
+            if len([1 for x in range(4) if self.board[x][3-x][row] == 1]) == 4:
+                return 1
+            if len([1 for x in range(4) if self.board[x][3-x][row] == -1]) == 4:
+                return -1
+        if len([1 for x in range(4) if self.board[x][x][x] == 1]) == 4:
+            return 1
+        if len([1 for x in range(4) if self.board[x][x][x] == -1]) == 4:
+            return -1
+        if len([1 for x in range(4) if self.board[x][x][3-x] == 1]) == 4:
+            return 1
+        if len([1 for x in range(4) if self.board[x][x][3-x] == -1]) == 4:
+            return -1
+        if len([1 for x in range(4) if self.board[x][3-x][x] == 1]) == 4:
+            return 1
+        if len([1 for x in range(4) if self.board[x][3-x][x] == -1]) == 4:
+            return -1
+        if len([1 for x in range(4) if self.board[x][3 - x][3 - x] == 1]) == 4:
+            return 1
+        if len([1 for x in range(4) if self.board[x][3 - x][3 - x] == -1]) == 4:
+            return -1
         if not self.allowed_moves():
             return "tie"
 
     def undo_move(self):
         x = 3
         while 1:
-            if self.board[x][(self.moves[-1]-1)%4][floor((self.moves[-1]-1)/4)] != '0':
-                self.board[x][(self.moves[-1]-1) % 4][floor((self.moves[-1]-1) / 4)] = '0'
-                if self.player == "x":
-                    self.player = "y"
+            if self.board[x][(self.moves[-1]-1)%4][floor((self.moves[-1]-1)/4)] != 0:
+                self.board[x][(self.moves[-1]-1) % 4][floor((self.moves[-1]-1) / 4)] = 0
+                if self.player == 1:
+                    self.player = -1
                 else:
-                    self.player = "x"
+                    self.player = 1
                 break
             else:
                 x-=1
