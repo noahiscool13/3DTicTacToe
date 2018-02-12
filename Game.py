@@ -4,7 +4,7 @@ from math import *
 class Game:
     def __init__(self):
         self.board = []
-        self.player = "1"
+        self.player = 1
         self.moves = []
         self.time_mode = "none"
         self.time_limit = 5
