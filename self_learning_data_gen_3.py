@@ -24,20 +24,21 @@ def runs(x):
         game.move(random_move(game))
 
     if game.check_board():
-        if len(game.moves)>10:
+        if len(game.moves)>5:
             for _ in range(5):
                 game.undo_move()
 
     while not game.check_board():
-        if game.player == "x":
+        if game.player == 1:
             game.move(AI1(deepcopy(game)))
         else:
             game.move(AI2(deepcopy(game)))
         states.append(tuple([tuple([tuple(z) for z in l]) for l in game.board]+[game.player]))
-    if game.check_board() == "x":
-        return ("x", states)
-    if game.check_board() == "y":
-        return ("y", states)
+    states.append(tuple([tuple([tuple(z) for z in l]) for l in game.board]+[game.player]))
+    if game.check_board() == 1:
+        return (1, states)
+    if game.check_board() == -1:
+        return (-1, states)
     return ("tie",[])
 
 t = time()
@@ -47,6 +48,8 @@ if __name__ == '__main__':
         x_wins = pickle.load(open("x_wins_clean.p", "rb"))
         y_wins = pickle.load(open("y_wins_clean.p", "rb"))
     except:
+        x_wins = set()
+        y_wins = set()
         print("No file found")
 
     n = 0
@@ -60,13 +63,12 @@ if __name__ == '__main__':
         pool.join()
 
         print(len(games))
-
         for x in games:
             try:
-                if x[0] == "x":
+                if x[0] == 1:
                     for y in x[1]:
                         x_wins.add(y)
-                elif x[0] == "y":
+                elif x[0] == -1:
                     for y in x[1]:
                         y_wins.add(y)
             except:
