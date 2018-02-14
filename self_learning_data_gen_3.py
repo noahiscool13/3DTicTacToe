@@ -7,6 +7,9 @@ import pickle
 from random_AI import AI as random_move
 from basic_alpha_beta import AI as AI1
 from basic_alpha_beta import AI as AI2
+from tqdm import tqdm
+
+flatten = lambda l: [item for sublist in l for item in sublist]
 
 time_max = 1
 
@@ -33,8 +36,8 @@ def runs(x):
             game.move(AI1(deepcopy(game)))
         else:
             game.move(AI2(deepcopy(game)))
-        states.append(tuple([tuple([tuple(z) for z in l]) for l in game.board]+[game.player]))
-    states.append(tuple([tuple([tuple(z) for z in l]) for l in game.board]+[game.player]))
+            states.append(tuple(flatten([tuple(flatten([tuple(z) for z in l])) for l in game.board]) + [game.player]))
+    states.append(tuple(flatten([tuple(flatten([tuple(z) for z in l])) for l in game.board])+[game.player]))
     if game.check_board() == 1:
         return (1, states)
     if game.check_board() == -1:
@@ -55,9 +58,9 @@ if __name__ == '__main__':
     n = 0
 
     while True:
-        pool = Pool()
-
-        games = pool.map(runs, list(range(500)))
+        pool = Pool(4)
+        batch = 500
+        games = list(tqdm(pool.imap(runs, list(range(batch))),total=batch,ncols=100))
 
         pool.close()
         pool.join()
