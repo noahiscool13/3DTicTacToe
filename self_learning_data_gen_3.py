@@ -58,10 +58,9 @@ if __name__ == '__main__':
     n = 0
 
     while True:
-        pool = Pool(4)
+        pool = Pool()
         batch = 500
         games = list(tqdm(pool.imap(runs, list(range(batch))),total=batch,ncols=100))
-
         pool.close()
         pool.join()
 
@@ -76,7 +75,7 @@ if __name__ == '__main__':
                         y_wins.add(y)
             except:
                 print("broke",x)
-
+        n+=batch
         print("game: ", n, "done")
         print(len(x_wins), len(y_wins))
         pickle.dump(x_wins, open("x_wins_clean.p", "wb"))

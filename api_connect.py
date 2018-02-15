@@ -38,5 +38,16 @@ def new_ai(name):
         return None
     return res
 
+def new_game(ai_id,secret_key):
+    api_url = api_url_base + "game"
+    data = {ai_id:ai_id,secret_key:secret_key}
+    response = requests.post(api_url, json=data)
+    res = json.loads(response.content.decode('utf-8'))
+    if "error_message" in res:
+        print(res["error_message"])
+        return None
+    return res
+
 if __name__ == '__main__':
-    print(new_ai("pindhazjdj"))
+    ai = new_ai("p3injdhfaz33tjdj")
+    print(new_game(ai["id"],ai["key"]))
