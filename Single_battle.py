@@ -3,8 +3,8 @@ from copy import deepcopy
 from time import *
 import inspect
 import os
-from trained_ai3 import AI as AI1
-from basic_alpha_beta import AI as AI2
+from basic_alpha_beta import AI as AI1
+from human_inteligence import AI as AI2
 
 display = 1
 

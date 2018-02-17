@@ -3,25 +3,19 @@ import tensorflow as tf
 from random import shuffle
 from matplotlib import pyplot as plt
 import os
-
+from tqdm import tqdm
 flatten = lambda l: [item for sublist in l for item in sublist]
 
 batch = 100
-
 x_data = pickle.load(open("x_wins_clean.p","rb"))
 y_data = pickle.load(open("y_wins_clean.p","rb"))
-
-x_data = [flatten(flatten(x)) for x in x_data]
-y_data = [flatten(flatten(x)) for x in y_data]
 
 data = [(x,0) for x in x_data] + [(x,1) for x in y_data]
 shuffle(data)
 
 q = [x[0] for x in data]
 
-q = [[-1 if x=="x" else x for x in n] for n in q]
-q = [[1 if x=="y" else x for x in n] for n in q]
-q = [[0 if x=="0" else x for x in n] for n in q]
+
 
 a = [[x[1]] for x in data]
 
@@ -32,20 +26,18 @@ trA = a[:int(len(a)*0.8)]
 trTQ = q[int(len(q)*0.8):int(len(q)*1)]
 trTA = a[int(len(a)*0.8):int(len(a)*1)]
 
-x = tf.placeholder(dtype=tf.float32, shape=[None, 64])
+x = tf.placeholder(dtype=tf.float32, shape=[None, 65])
 y = tf.placeholder(dtype=tf.float32, shape=[None, 1])
 
 
 def net(data):
-    hidden_l1 = {"w": tf.Variable(tf.random_normal([64, 150])), "b": tf.Variable(tf.random_normal([150]))}
-    hidden_l2 = {"w": tf.Variable(tf.random_normal([150, 200])), "b": tf.Variable(tf.random_normal([200]))}
-    hidden_l3 = {"w": tf.Variable(tf.random_normal([200, 100])), "b": tf.Variable(tf.random_normal([100]))}
+    hidden_l1 = {"w": tf.Variable(tf.random_normal([65, 100])), "b": tf.Variable(tf.random_normal([100]))}
+    hidden_l2 = {"w": tf.Variable(tf.random_normal([100, 100])), "b": tf.Variable(tf.random_normal([100]))}
     output_l = {"w": tf.Variable(tf.random_normal([100, 1])), "b": tf.Variable(tf.random_normal([1]))}
 
     l1 = tf.nn.sigmoid(tf.matmul(data, hidden_l1["w"]) + hidden_l1["b"])
     l2 = tf.nn.sigmoid(tf.matmul(l1, hidden_l2["w"]) + hidden_l2["b"])
-    l3 = tf.nn.sigmoid(tf.matmul(l2, hidden_l3["w"]) + hidden_l3["b"])
-    out = tf.nn.sigmoid(tf.matmul(l3, output_l["w"]) + output_l["b"])
+    out = tf.nn.sigmoid(tf.matmul(l2, output_l["w"]) + output_l["b"])
 
     return out
 
@@ -61,7 +53,7 @@ def train_net(x, y):
         saver = tf.train.Saver()
         testE = []
         trainE = []
-        for epoch in range(40):
+        for epoch in range(50):
             c = list(zip(trQ, trA))
 
             shuffle(c)
@@ -87,7 +79,7 @@ def train_net(x, y):
         a = sum([1 for n in range(len(p[0])) if ((p[0][n]<=0.5 and trTA[n][0] == 0) or (p[0][n] > 0.5 and trTA[n][0] == 1))])
         print(a/p[0].shape[0]*100,'%')
 
-        saver.save(sess, os.path.join(os.getcwd(),"trained_models/NN2.ckpt"))
+        saver.save(sess, os.path.join(os.getcwd(),"trained_models/NN3.ckpt"))
 
     plt.plot(testE[1:])
     plt.plot(trainE[1:])

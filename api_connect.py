@@ -58,8 +58,8 @@ def send_move(game,ai_id,ai_key,position):
 if __name__ == '__main__':
     from trained_ai3 import AI as AI1
     from trained_ai3 import AI as AI2
-    ai1 = new_ai("niceyyyyyy1")
-    ai2 = new_ai("niceyyyyyy2")
+    ai1 = new_ai("niceyyyyyyyyy1")
+    ai2 = new_ai("niceyyyyyyyyy2")
     game_base = new_game(ai1["id"],ai1["key"])
     while not (game_base["ai_b"] is None):
         game_base = new_game(ai1["id"], ai1["key"])
