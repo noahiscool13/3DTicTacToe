@@ -4,7 +4,7 @@ from time import *
 import inspect
 import os
 from basic_alpha_beta import AI as AI1
-from human_inteligence import AI as AI2
+from montecarlo_tree_search import AI as AI2
 
 display = 1
 

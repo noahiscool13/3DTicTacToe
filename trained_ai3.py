@@ -80,7 +80,7 @@ def AI(game):
             game_child = deepcopy(game)
             game_child.move(x)
             nxt_games.append(game_child)
-        nxt_scores = [alphabeta(g, 1,-99999, 99999, game.player) for g in nxt_games]
+        nxt_scores = [alphabeta(g, 0,-99999, 99999, game.player) for g in nxt_games]
         print(nxt_scores)
         good_moves = [game.allowed_moves()[x] for x in range(len(game.allowed_moves())) if
                       nxt_scores[x] == max(nxt_scores)]

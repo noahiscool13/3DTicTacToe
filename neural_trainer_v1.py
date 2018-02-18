@@ -6,7 +6,7 @@ import os
 from tqdm import tqdm
 flatten = lambda l: [item for sublist in l for item in sublist]
 
-batch = 100
+batch = 10
 x_data = pickle.load(open("x_wins_clean.p","rb"))
 y_data = pickle.load(open("y_wins_clean.p","rb"))
 

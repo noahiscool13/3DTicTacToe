@@ -4,12 +4,12 @@ from time import *
 import inspect
 import os
 from Capturing import *
-from random_AI import AI as AI1
-from random_AI import AI as AI2
+from multi_core_montecarlo_tree_search import AI as AI1
+from montecarlo_tree_search import AI as AI2
 
 display = 1
-capture = 0
-time_max = 300
+capture = 1
+time_max = 20
 
 p1_time = []
 p2_time = []
